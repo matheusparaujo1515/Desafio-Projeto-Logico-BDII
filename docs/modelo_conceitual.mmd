@@ -1,0 +1,76 @@
+erDiagram
+    CLIENTE ||--o{ VEICULO : possui
+    VEICULO ||--o{ ORDEM_SERVICO : gera
+    EQUIPE ||--o{ ORDEM_SERVICO : executa
+    EQUIPE ||--o{ MECANICO : composta_por
+    ORDEM_SERVICO ||--o{ SERVICO_OS : contem
+    ORDEM_SERVICO ||--o{ PECA_OS : utiliza
+    SERVICO ||--o{ SERVICO_OS : referencia
+    PECA ||--o{ PECA_OS : referencia
+
+    CLIENTE {
+        int id PK
+        text nome
+        text endereco
+        text telefone
+    }
+
+    VEICULO {
+        int id PK
+        text placa
+        text modelo
+        text marca
+        int ano
+        int cliente_id FK
+    }
+
+    MECANICO {
+        int id PK
+        text nome
+        text endereco
+        text especialidade
+    }
+
+    EQUIPE {
+        int id PK
+        text nome_equipe
+    }
+
+    ORDEM_SERVICO {
+        int id PK
+        text numero_os
+        date data_emissao
+        date data_conclusao_prevista
+        numeric valor_total
+        text status
+        int veiculo_id FK
+        int equipe_id FK
+    }
+
+    SERVICO {
+        int id PK
+        text descricao
+        numeric valor_mao_obra
+    }
+
+    PECA {
+        int id PK
+        text descricao
+        numeric valor_unitario
+    }
+
+    SERVICO_OS {
+        int id PK
+        int ordem_servico_id FK
+        int servico_id FK
+        int quantidade
+        numeric valor_total
+    }
+
+    PECA_OS {
+        int id PK
+        int ordem_servico_id FK
+        int peca_id FK
+        int quantidade
+        numeric valor_total
+    }
